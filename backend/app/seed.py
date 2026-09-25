@@ -18,6 +18,12 @@ def init_db():
             id INTEGER PRIMARY KEY AUTOINCREMENT, wall_id INTEGER, roll_id INTEGER,
             result_json TEXT, note TEXT, created_at TEXT
         );
+        CREATE TABLE IF NOT EXISTS wall_doors(
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            wall_id INTEGER NOT NULL,
+            width REAL NOT NULL,
+            created_at TEXT
+        );
         """
     )
     if conn.execute("SELECT COUNT(*) c FROM walls").fetchone()["c"] == 0:
