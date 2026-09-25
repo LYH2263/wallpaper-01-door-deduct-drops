@@ -5,5 +5,9 @@ const items = ref([])
 onMounted(async () => { items.value = (await getJSON('/api/runs')).items })
 </script>
 <template>
-  <div class="page"><h1>记录</h1><ul><li v-for="r in items" :key="r.id">{{ r.wall_name }} → {{ r.result?.rolls }} 卷</li></ul></div>
+  <div class="page"><h1>记录</h1><ul><li v-for="r in items" :key="r.id">
+    <router-link :to="`/runs/${r.id}`">#{{ r.id }}</router-link>
+    {{ r.wall_name }} → {{ r.result?.rolls }} 卷 · {{ r.result?.drops }} 条
+    <template v-if="r.result?.door_widths?.length">· 扣门 {{ r.result.door_widths.join('+') }}m，有效周长 {{ r.result.effective_perimeter_m }}m</template>
+  </li></ul></div>
 </template>

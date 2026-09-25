@@ -7,3 +7,7 @@ body { margin: 0; font-family: Georgia, serif; background: #faf3e8; }
 .strip { width: 14px; background: linear-gradient(#c49a6c, #8b5a2b); border-radius: 2px 2px 0 0; }
 .roll-chip { display: inline-block; margin: 0.25rem; padding: 0.5rem; background: #fff; border: 1px dashed #6b4226; }
 .warn { color: #a00; }
+.doors-editor { display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; margin: 0.5rem 0; }
+.door-chip { display: inline-flex; gap: 0.25rem; align-items: center; padding: 0.25rem 0.5rem; background: #fff; border: 1px dashed #6b4226; border-radius: 4px; }
+.door-chip input { width: 4.5rem; }
+.door-total { color: #6b4226; }

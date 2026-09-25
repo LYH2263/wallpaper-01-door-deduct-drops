@@ -7,7 +7,8 @@ def init_db():
         """
         CREATE TABLE IF NOT EXISTS walls(
             id INTEGER PRIMARY KEY, name TEXT, perimeter REAL, height REAL,
-            data_quality TEXT DEFAULT 'clean', note TEXT DEFAULT ''
+            data_quality TEXT DEFAULT 'clean', note TEXT DEFAULT '',
+            doors_json TEXT DEFAULT '[]'
         );
         CREATE TABLE IF NOT EXISTS rolls(
             id INTEGER PRIMARY KEY, name TEXT, width REAL, length REAL, pattern_cm REAL,
@@ -20,6 +21,9 @@ def init_db():
         );
         """
     )
+    wall_cols = {r["name"] for r in conn.execute("PRAGMA table_info(walls)").fetchall()}
+    if "doors_json" not in wall_cols:
+        conn.execute("ALTER TABLE walls ADD COLUMN doors_json TEXT DEFAULT '[]'")
     if conn.execute("SELECT COUNT(*) c FROM walls").fetchone()["c"] == 0:
         conn.executemany(
             "INSERT INTO walls(name,perimeter,height,data_quality,note) VALUES (?,?,?,?,?)",
